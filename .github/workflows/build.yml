@@ -21,6 +21,11 @@ jobs:
           gradle-version: 8.12
       - name: Unpack mod project
         run: unzip -q modsource.zip -d proj
+      - name: Fix API names for 1.21.4
+        working-directory: proj
+        run: |
+          sed -i 's/net\.minecraft\.client\.option\.ParticlesMode/net.minecraft.particle.ParticlesMode/' src/main/java/dev/mobilevisual/Optimizer.java
+          sed -i 's/mc\.send(/mc.execute(/' src/main/java/dev/mobilevisual/MobileVisualClient.java
       - name: Build
         working-directory: proj
         run: gradle build
